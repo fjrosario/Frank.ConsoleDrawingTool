@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F3889260-0AB7-4E93-9717-08576C7D676E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{44298D91-8966-4BB3-B8BE-38ABB311E5B6}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Huge.DrawingTool", "src\Huge.DrawingTool\Huge.DrawingTool.xproj", "{147E075D-08A9-46D5-8BC1-1E3BE756BBD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{147E075D-08A9-46D5-8BC1-1E3BE756BBD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{147E075D-08A9-46D5-8BC1-1E3BE756BBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{147E075D-08A9-46D5-8BC1-1E3BE756BBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{147E075D-08A9-46D5-8BC1-1E3BE756BBD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{147E075D-08A9-46D5-8BC1-1E3BE756BBD6} = {F3889260-0AB7-4E93-9717-08576C7D676E}
+	EndGlobalSection
+EndGlobal

@@ -49,15 +49,7 @@ namespace Huge.DrawingTool.Commands
 
             
 
-            int height = Helpers.ValidationHelper.ValidateAndParseInt(args.First());
-            if (height < Canvas.MIN_HEIGHT)
-            {
-                throw new ArgumentOutOfRangeException(nameof(height));
-            }
-
-            this.Height = height;
-
-            int width = Helpers.ValidationHelper.ValidateAndParseInt(args[1]);
+            int width = Helpers.ValidationHelper.ValidateAndParseInt(args[0]);
 
             if (width < Canvas.MIN_WIDTH)
             {
@@ -65,6 +57,14 @@ namespace Huge.DrawingTool.Commands
             }
 
             this.Width = width;
+
+            int height = Helpers.ValidationHelper.ValidateAndParseInt(args[1]);
+            if (height < Canvas.MIN_HEIGHT)
+            {
+                throw new ArgumentOutOfRangeException(nameof(height));
+            }
+
+            this.Height = height;
 
 
         }

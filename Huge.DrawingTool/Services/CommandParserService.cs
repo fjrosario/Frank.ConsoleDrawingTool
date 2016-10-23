@@ -35,7 +35,7 @@ namespace Huge.DrawingTool.Services
         public static ICommand GetCommandFromCommandLine(ExecutionContext ctx, string commandLine)
         {
             string[] clParts = commandLine.Split(DEFAULT_PARAM_DELIMITER).ToArray();
-            string commandName = clParts[0].ToLower();
+            string commandName = clParts[0].ToUpper();
             IEnumerable<string> args = clParts.Skip(1);
 
             var cmd = Factories.CommandFactory.CreateCommand(commandName, ctx, args);

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Huge.DrawingTool.Entities;
 
 namespace Huge.DrawingTool.Commands
 {
-    public class DrawLineCommand : BaseCommand, ICommand
+    public class FillCommand: BaseCommand, ICommand
     {
         public string CommandHelpMessage
         {
@@ -22,7 +23,8 @@ namespace Huge.DrawingTool.Commands
                 throw new Exception("Error: Canvas has not been initialized");
             }
 
-            _canvasContext.Canvas.DrawLine(X1, Y1, X2, Y2);
+            var targetColor = _canvasContext.Canvas.GetUnit(X, Y);
+            _canvasContext.Canvas.FloodFill(X,Y, targetColor, ReplacementColor);
 
         }
 
@@ -30,16 +32,15 @@ namespace Huge.DrawingTool.Commands
         {
             get
             {
-                return "L";
+                return "B";
             }
         }
 
-        public int X1 { get; private set; }
-        public int Y1 { get; private set; }
-        public int X2 { get; private set; }
-        public int Y2 { get; private set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
+        public char ReplacementColor { get; private set; }
 
-        public DrawLineCommand(ExecutionContext ctx, IEnumerable<string> args) : base(ctx)
+        public FillCommand(ExecutionContext ctx, IEnumerable<string> args) : base(ctx)
         {
             this.ParseArguments(args);
         }
@@ -61,25 +62,17 @@ namespace Huge.DrawingTool.Commands
 
             if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
             {
-                throw new ArgumentOutOfRangeException(string.Format("Error: Starting point ({0},{1}) not on canvas.",x,y));
+                throw new ArgumentOutOfRangeException(string.Format("Error: Fill start point ({0},{1}) not on canvas.", x, y));
             }
-            X1 = x;
-            Y1 = y;
+            X = x;
+            Y = y;
 
-            x = Helpers.ValidationHelper.ValidateAndParseInt(args[2]) - 1;
-            y = Helpers.ValidationHelper.ValidateAndParseInt(args[3]) - 1;
 
-            if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
-            {
-                throw new ArgumentOutOfRangeException(string.Format("Error: Ending point({0},{1}) not on canvas.", x, y));
-            }
-
-            X2 = x;
-            Y2 = y;
-
+            this.ReplacementColor = args[2][0];
 
         }
 
-        public override int ArgumentCount { get { return 4; } }
+        public override int ArgumentCount { get { return 3; } }
     }
 }
+

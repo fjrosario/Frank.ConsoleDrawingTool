@@ -68,19 +68,40 @@ namespace Huge.DrawingTool.Entities
                 throw new ArgumentOutOfRangeException();
             }
 
+            int dx = x2 - x1;
+            int dy = y2 - y1;
 
-            int rise = (y2 - y1);
-            int run = (x2 - x1);
+            int absDx = Math.Abs(dx);
+            int absDy = Math.Abs(dy);
+
+            int steps = (absDx > absDy) ? absDx : absDy;
+
+            float xIncrement = (float)dx/steps;
+            float yIncrement = (float)dy /steps;
+
+/*
+            int rise = Math.Abs(y2 - y1) + 1;
+            int run = Math.Abs(x2 - x1) + 1;
             int slope = rise / run;
-            bool descendingX = run < 0;
-            int xIncrement = descendingX ? -1 : 1;
+*/
 
-            for(int curX = x1; curX <= x2; curX += xIncrement)
+            float curX = x1;
+            float curY = y1;
+            
+            for(int cntr=0; cntr < steps; cntr++)
             {
+/*
                 //subtract rather than add because origin is from top left
                 //instead cartesian standard of bottom left.
-                int curY = y1 - (int)Math.Round(((decimal)(slope * curX)));
-                this.DrawUnit(curX, curY, color);
+                int curY = y1 + (int)Math.Round(((decimal)(slope * curX)));
+*/
+                curX += xIncrement;
+                curY += yIncrement;
+
+                int intCurX = (int)Math.Round(curX);
+                int intCurY = (int)Math.Round(curY);
+
+                this.DrawUnit(intCurX, intCurY, color);
             }
 
         }
@@ -185,6 +206,11 @@ namespace Huge.DrawingTool.Entities
             this.FloodFill(x + 1, y, targetColor, replacementColor);
 
             return;
+        }
+
+        public char[,] DumpBuffer()
+        {
+            return _canvasArray;
         }
     }
 }

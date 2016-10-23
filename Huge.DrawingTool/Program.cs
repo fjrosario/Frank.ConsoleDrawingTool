@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Huge.DrawingTool.Commands;
 using Huge.DrawingTool.Entities;
@@ -16,24 +17,38 @@ namespace Huge.DrawingTool
             Console.Error.WriteLine(errMsg);
         }
 
+        public static void PrintChar(char c)
+        {
+            Console.Out.Write(c);
+        }
+
+        public static void Print(string msg)
+        {
+            Console.Out.WriteLine(msg);
+        }
+
         public static void Main(string[] args)
         {
-            if(args.Count() != 2)
+            if(false && args.Count() != 2)
             {
                 LogError(@"Error: command line arguments incorrect. Format: DT c:\path\to\input.text c:\path\to\output.txt");
+                Console.ReadLine();
                 return;
             }
 
-            string fileInputPath = args[0];
-            string fileOutputPath = args[1];
+            string fileInputPath = "";//args[0];
+            string fileOutputPath = "";//args[1];
 
             //check if file input exists
 
             if (System.IO.File.Exists(fileInputPath) == false)
             {
                 LogError(string.Format(@"Error: '{0}' could not be found", fileInputPath));
-                return;
+                fileInputPath = "input.txt";
+                //Console.ReadLine();
+                //return;
             }
+            
 
 
             //process input
@@ -42,29 +57,42 @@ namespace Huge.DrawingTool
             var sanitizedCommandLines = CommandParserService.SanitizeInput(commandTextLines);
             //  extract commands from input
             var ctx = new ExecutionContext();
-            var commands = sanitizedCommandLines.Select(s => CommandParserService.GetCommandFromCommandLine(ctx, s)).ToList();
+
+            var firstCmd = CommandParserService.GetCommandFromCommandLine(ctx, sanitizedCommandLines.First());
+            if ((firstCmd is CreateCanvasCommand) == false)
+            {
+                LogError("Error: first command must to create canvas not specified");
+                Console.ReadLine();
+            }
+            firstCmd.Execute();
+
+            var remainderCommands = sanitizedCommandLines.Skip(1).Select(s => CommandParserService.GetCommandFromCommandLine(ctx, s)).ToList();
 
             //make sure first command is creating Canvas
 
-            if (commands.Any())
+            if (remainderCommands.Any())
             {
-                //ensure first command is creating Canvas
-                if ((commands.First() is CreateCanvasCommand) == false)
-                {
-                    LogError("Error: first command must to create canvas not specified");
-                    return;
-                }
-                foreach (var command in commands)
+                foreach (var command in remainderCommands)
                 {
                     command.Execute();
                 }
 
+                var gfxBuffer = ctx.Canvas.DumpBuffer();
+
+                for (int y = 0; y < gfxBuffer.GetLength(0); y++)
+                {
+                    for (int x = 0; x < gfxBuffer.GetLength(1); x++)
+                    {
+                        PrintChar(gfxBuffer[x,y]);
+                    }
+                }
             }
             else
             {
                 LogError("Error: no commands specified in input file.");
-                return;
             }
+
+            Console.ReadLine();
         }
     }
 }

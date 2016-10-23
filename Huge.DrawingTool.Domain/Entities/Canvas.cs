@@ -4,7 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Huge.DrawingTool.Entities
+namespace Huge.DrawingTool.Domain.Entities
 {
     public class Canvas
     {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Huge.DrawingTool.Commands;
-using Huge.DrawingTool.Entities;
+using Huge.DrawingTool.Domain.Commands;
+using Huge.DrawingTool.Domain.Entities;
 
-namespace Huge.DrawingTool.Factories
+namespace Huge.DrawingTool.Domain.Factories
 {
     public static class CommandFactory
     {

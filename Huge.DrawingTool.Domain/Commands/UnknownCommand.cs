@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Huge.DrawingTool.Commands
+namespace Huge.DrawingTool.Domain.Commands
 {
     public class UnknownCommand : ICommand
     {

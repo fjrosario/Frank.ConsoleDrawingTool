@@ -1,4 +1,4 @@
-﻿namespace Huge.DrawingTool.Commands
+﻿namespace Huge.DrawingTool.Domain.Commands
 {
     public interface ICommand
     {

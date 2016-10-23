@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Huge.DrawingTool.Entities;
+using Huge.DrawingTool.Domain.Entities;
 
-namespace Huge.DrawingTool.Commands
+namespace Huge.DrawingTool.Domain.Commands
 {
     public class FillCommand: BaseCommand, ICommand
     {

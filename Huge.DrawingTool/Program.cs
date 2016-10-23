@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Huge.DrawingTool.Commands;
-using Huge.DrawingTool.Entities;
-using Huge.DrawingTool.Services;
+using Huge.DrawingTool.Domain.Commands;
+using Huge.DrawingTool.Domain.Entities;
+using Huge.DrawingTool.Domain.Services;
 
 namespace Huge.DrawingTool
 {

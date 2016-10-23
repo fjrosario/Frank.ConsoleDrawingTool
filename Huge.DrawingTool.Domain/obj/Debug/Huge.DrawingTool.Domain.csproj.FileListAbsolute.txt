@@ -1,0 +1,4 @@
+C:\Users\Frank\Documents\Visual Studio 2015\Projects\Huge.DrawingTool\Huge.DrawingTool.Domain\bin\Debug\Huge.DrawingTool.Domain.dll
+C:\Users\Frank\Documents\Visual Studio 2015\Projects\Huge.DrawingTool\Huge.DrawingTool.Domain\bin\Debug\Huge.DrawingTool.Domain.pdb
+C:\Users\Frank\Documents\Visual Studio 2015\Projects\Huge.DrawingTool\Huge.DrawingTool.Domain\obj\Debug\Huge.DrawingTool.Domain.dll
+C:\Users\Frank\Documents\Visual Studio 2015\Projects\Huge.DrawingTool\Huge.DrawingTool.Domain\obj\Debug\Huge.DrawingTool.Domain.pdb

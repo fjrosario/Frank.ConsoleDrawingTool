@@ -1,9 +1,9 @@
-﻿using Huge.DrawingTool.Commands;
+﻿using Huge.DrawingTool.Domain.Commands;
 using System.Collections.Generic;
 using System.Linq;
-using Huge.DrawingTool.Entities;
+using Huge.DrawingTool.Domain.Entities;
 
-namespace Huge.DrawingTool.Services
+namespace Huge.DrawingTool.Domain.Services
 {
     public class CommandParserService
     {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Huge.DrawingTool.Commands;
 
 namespace Huge.DrawingTool.Entities
 {
-    public struct Point
+    public class ExecutionContext
     {
-        int Y { get; set; }
-        int X { get; set; }
+        public Canvas Canvas { get; set; }
     }
 }

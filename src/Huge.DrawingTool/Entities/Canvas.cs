@@ -13,10 +13,10 @@ namespace Huge.DrawingTool.Entities
         public const int Y_ORIGIN = 0;
         public const char DEFAULT_COLOR = 'X';
         public const char DEFAULT_FILL = ' ';
-        public const char HORIZONTAL_LINE_FILL = '-';
-        public const char VERTICAL_LINE_FILL = '|';
+        public const char HORIZONTAL_BORDER_LINE_FILL = '-';
+        public const char VERTICAL_BORDER_LINE_FILL = '|';
 
-        private char[,] _canvasArray;
+        private readonly char[,] _canvasArray;
         private readonly int _height = 0;
         private readonly int _width = 0;
         private readonly int _heightMax = 0;
@@ -24,7 +24,7 @@ namespace Huge.DrawingTool.Entities
 
         public bool IsPointOnCanvas(int x, int y)
         {
-            if(x <= X_ORIGIN || y <= Y_ORIGIN)
+            if(x < X_ORIGIN || y < Y_ORIGIN)
             {
                 return false;
             }
@@ -41,11 +41,11 @@ namespace Huge.DrawingTool.Entities
         {
             if(height < MIN_HEIGHT)
             {
-                throw new ArgumentOutOfRangeException(nameof(height), string.Format("Height parameter must be at {0} or greater", MIN_HEIGHT);
+                throw new ArgumentOutOfRangeException(nameof(height), string.Format("Height parameter must be at {0} or greater", MIN_HEIGHT));
             }
             if (width < MIN_WIDTH)
             {
-                throw new ArgumentOutOfRangeException(nameof(width), string.Format("Width parameter must be at {0} or greater", MIN_HEIGHT);
+                throw new ArgumentOutOfRangeException(nameof(width), string.Format("Width parameter must be at {0} or greater", MIN_HEIGHT));
             }
 
             _canvasArray = new char[width, height];
@@ -77,8 +77,10 @@ namespace Huge.DrawingTool.Entities
 
             for(int curX = x1; curX <= x2; curX += xIncrement)
             {
-                int curY = y1 + (int)Math.Round(((decimal)(slope * curX)));
-                _canvasArray[curX, curY] = color;
+                //subtract rather than add because origin is from top left
+                //instead cartesian standard of bottom left.
+                int curY = y1 - (int)Math.Round(((decimal)(slope * curX)));
+                this.DrawUnit(curX, curY, color);
             }
 
         }
@@ -93,13 +95,28 @@ namespace Huge.DrawingTool.Entities
             this.DrawLine(x2, y1, x2, y2, color);
         }
 
+        public char GetUnit(int x, int y)
+        {
+            return _canvasArray[x, y];
+        }
+
+        public void DrawUnit(int x, int y, char color)
+        {
+            if (this.IsPointOnCanvas(x, y) == false)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            _canvasArray[x, y] = color;
+        }
+
         private void InitialFill()
         {
             for(int x=0; x < _width; x++)
             {
                 for (int y=0; y < _height; y++)
                 {
-                    _canvasArray[x, y] = DEFAULT_FILL;
+                    this.DrawUnit(x, y, DEFAULT_FILL);
                 }
             }
         }
@@ -107,11 +124,11 @@ namespace Huge.DrawingTool.Entities
         private void DrawBorders()
         {
             //Draw top and bottom borders
-            this.DrawLine(X_ORIGIN, Y_ORIGIN, _widthMax, Y_ORIGIN, HORIZONTAL_LINE_FILL);
-            this.DrawLine(X_ORIGIN, _heightMax, _widthMax, _heightMax, HORIZONTAL_LINE_FILL);
+            this.DrawLine(X_ORIGIN, Y_ORIGIN, _widthMax, Y_ORIGIN, HORIZONTAL_BORDER_LINE_FILL);
+            this.DrawLine(X_ORIGIN, _heightMax, _widthMax, _heightMax, HORIZONTAL_BORDER_LINE_FILL);
             //Draw left/right borders
-            this.DrawLine(X_ORIGIN, Y_ORIGIN + 1, X_ORIGIN, _heightMax - 1,VERTICAL_LINE_FILL);
-            this.DrawLine(_widthMax, Y_ORIGIN + 1, _widthMax, _heightMax - 1,VERTICAL_LINE_FILL);
+            this.DrawLine(X_ORIGIN, Y_ORIGIN + 1, X_ORIGIN, _heightMax - 1,VERTICAL_BORDER_LINE_FILL);
+            this.DrawLine(_widthMax, Y_ORIGIN + 1, _widthMax, _heightMax - 1,VERTICAL_BORDER_LINE_FILL);
         }
 
 
@@ -127,5 +144,47 @@ namespace Huge.DrawingTool.Entities
             this.Initialize();
         }
 
+        /// <summary>
+        ///  Flood fill algorithm, pulled from Wikipedia:
+        ///  https://en.wikipedia.org/wiki/Flood_fill#Stack-based_recursive_implementation_.28four-way.29
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="targetColor"></param>
+        /// <param name="replacementColor"></param>
+        public void FloodFill(int x, int y, char targetColor, char replacementColor)
+        {
+            if(this.IsPointOnCanvas(x,y) == false)
+            {
+                return;
+            }
+            char curColor = this.GetUnit(x, y);
+
+            //1.If target - color is equal to replacement-color, return.
+            if (curColor == replacementColor)
+            {
+                return;
+            }
+
+            //2. If the color of node is not equal to target-color, return.
+            if(curColor != targetColor)
+            {
+                return;
+            }
+
+            //3.Set the color of node to replacement-color.
+            this.DrawUnit(x, y, replacementColor);
+
+            //Perform Flood-fill(one step to the south of node, target - color, replacement - color).
+            this.FloodFill(x, y + 1, targetColor, replacementColor);
+            //Perform Flood - fill(one step to the north of node, target - color, replacement - color).
+            this.FloodFill(x, y - 1, targetColor, replacementColor);
+            //Perform Flood - fill(one step to the west of node, target - color, replacement - color).
+            this.FloodFill(x - 1, y, targetColor, replacementColor);
+            //Perform Flood - fill(one step to the east of node, target - color, replacement - color).
+            this.FloodFill(x + 1, y, targetColor, replacementColor);
+
+            return;
+        }
     }
 }

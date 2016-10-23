@@ -25,7 +25,7 @@ namespace Huge.DrawingTool.Domain.Factories
             {
                 return availableCommands[cmdStr](ctx, args);
             }
-            //couldn't find command, add somewhere else
+            //couldn't find command, return unknown command
             else
             {
                 return new UnknownCommand();

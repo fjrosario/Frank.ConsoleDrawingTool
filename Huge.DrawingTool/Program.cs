@@ -26,7 +26,7 @@ namespace Huge.DrawingTool
 
         public static void Main(string[] args)
         {
-            if(false && args.Count() != 2)
+            if(args.Count() != 2)
             {
                 LogError(@"Error: command line arguments incorrect. Format: DT c:\path\to\input.text c:\path\to\output.txt");
                 Console.ReadLine();

@@ -215,7 +215,7 @@ namespace Huge.DrawingTool.Entities
 
         public char[,] DumpBuffer()
         {
-            return _canvasArray;
+            return (char[,])_canvasArray.Clone();
         }
     }
 }

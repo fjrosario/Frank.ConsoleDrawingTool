@@ -123,7 +123,7 @@ namespace Huge.DrawingTool.Entities
             _canvasArray[y, x] = color;
         }
 
-        private void InitialFill(char fill = 'S')
+        private void InitialFill(char fill = ' ')
         {
             for(int x=0; x < Width; x++)
             {

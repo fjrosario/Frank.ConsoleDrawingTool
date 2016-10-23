@@ -66,6 +66,9 @@ namespace Huge.DrawingTool.Commands
                 throw new ArgumentOutOfRangeException(string.Format("Error: Starting point ({0},{1}) not on canvas.", x, y));
             }
 
+            X1 = x;
+            Y1 = y;
+
             x = CoordinateHelper.GetCoordinateFromString(args[2]);
             y = CoordinateHelper.GetCoordinateFromString(args[3]);
 
@@ -74,6 +77,8 @@ namespace Huge.DrawingTool.Commands
                 throw new ArgumentOutOfRangeException(string.Format("Error: Ending point ({0},{1}) not on canvas.", x, y));
             }
 
+            X2 = x;
+            Y2 = y;
 
         }
 

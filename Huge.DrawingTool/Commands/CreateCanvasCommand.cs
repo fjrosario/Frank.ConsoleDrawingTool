@@ -17,9 +17,11 @@ namespace Huge.DrawingTool.Commands
 
         public override int ArgumentCount { get { return 2; } }
 
+        public char DefaultFill { get; set; }
+
         public void Execute()
         {
-            this._canvasContext.Canvas = new Canvas(this.Height, this.Width);
+            this._canvasContext.Canvas = new Canvas(this.Height, this.Width, this.DefaultFill);
         }
 
         public static string CommandName
@@ -47,7 +49,6 @@ namespace Huge.DrawingTool.Commands
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
 
-            
 
             int width = Helpers.ValidationHelper.ValidateAndParseInt(args[0]);
 
@@ -65,6 +66,13 @@ namespace Huge.DrawingTool.Commands
             }
 
             this.Height = height;
+
+
+            //optional parameter to make it easier to debug output
+            if (args.Length >= 3)
+            {
+                this.DefaultFill = args[2][0];
+            }
 
 
         }

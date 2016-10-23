@@ -23,7 +23,7 @@ namespace Huge.DrawingTool.Commands
 
         public void ValidateArgumentCount(IEnumerable<string> args)
         {
-            if (args.Count() != this.ArgumentCount)
+            if (args.Count() < this.ArgumentCount)
             {
                 throw new Exception("Error: invalid number of args");
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Huge.DrawingTool.Entities;
+using Huge.DrawingTool.Helpers;
 
 namespace Huge.DrawingTool.Commands
 {
@@ -56,8 +57,8 @@ namespace Huge.DrawingTool.Commands
             var argsArray = args.ToArray();
             this.ValidateArgumentCount(args);
 
-            int x = Helpers.CoordinateHelper.GetCoordinateFromString(args[0]);
-            int y = Helpers.CoordinateHelper.GetCoordinateFromString(args[1]);
+            int x = ValidationHelper.ValidateAndParseInt(args[0]);
+            int y = ValidationHelper.ValidateAndParseInt(args[1]);
 
             if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
             {
@@ -67,8 +68,8 @@ namespace Huge.DrawingTool.Commands
             X1 = x;
             Y1 = y;
 
-            x = Helpers.CoordinateHelper.GetCoordinateFromString(args[2]);
-            y = Helpers.CoordinateHelper.GetCoordinateFromString(args[3]);
+            x = ValidationHelper.ValidateAndParseInt(args[2]);
+            y = ValidationHelper.ValidateAndParseInt(args[3]);
 
             if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
             {

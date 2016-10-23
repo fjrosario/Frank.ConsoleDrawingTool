@@ -68,7 +68,6 @@
     <Compile Include="Entities\Canvas.cs" />
     <Compile Include="Entities\ExecutionContext.cs" />
     <Compile Include="Factories\CommandFactory.cs" />
-    <Compile Include="Helpers\CoordinateHelper.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

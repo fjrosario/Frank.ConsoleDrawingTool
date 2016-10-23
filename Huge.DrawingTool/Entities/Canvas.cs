@@ -13,11 +13,15 @@ namespace Huge.DrawingTool.Entities
         public const int X_ORIGIN = 0;
         public const int Y_ORIGIN = 0;
         public const char DEFAULT_COLOR = 'X';
-        public const char DEFAULT_FILL = ' ';
+        public const char DEFAULT_FILL_COLOR = ' ';
         public const char HORIZONTAL_BORDER_LINE_FILL = '-';
         public const char VERTICAL_BORDER_LINE_FILL = '|';
 
         private readonly char[,] _canvasArray;
+        private readonly int _actualWidth;
+        private readonly int _actualHeight;
+
+        public char DefaultFill { get; private set; }
         public int Height { get; private set; }
         public int Width { get; private set; }
 
@@ -33,10 +37,10 @@ namespace Huge.DrawingTool.Entities
                 throw new Exception(string.Format("Internal error, {0} is null", nameof(_canvasArray)));
             }
 
-            return x < Width && y < Height;
+            return x < _actualWidth && y < _actualHeight;
         }
 
-        public Canvas(int height, int width)
+        public Canvas(int height, int width, char defaultFill = DEFAULT_FILL_COLOR)
         {
             if(height < MIN_HEIGHT)
             {
@@ -48,9 +52,15 @@ namespace Huge.DrawingTool.Entities
             }
 
             //add two to each dimension for border
-            _canvasArray = new char[height, width];
+            _canvasArray = new char[height + 2, width + 2];
+            //_borderedCanvasArray = new char[height + 2, width + 2];
             Width = width;
             Height = height;
+            DefaultFill = defaultFill;
+
+            _actualWidth = _canvasArray.GetLength(1);
+            _actualHeight = _canvasArray.GetLength(0);
+
             this.Initialize();
         }
 
@@ -123,28 +133,28 @@ namespace Huge.DrawingTool.Entities
             _canvasArray[y, x] = color;
         }
 
-        private void InitialFill(char fill = ' ')
+        private void InitialFill()
         {
-            for(int x=0; x < Width; x++)
+            for(int x=0; x < _actualWidth; x++)
             {
-                for (int y=0; y < Height; y++)
+                for (int y=0; y < _actualHeight; y++)
                 {
-                    this.DrawUnit(x, y, fill);
+                    this.DrawUnit(x, y, DefaultFill);
                 }
             }
         }
 
         private void DrawBorders()
         {
-            int widthMax = this.Width - 1;
-            int heightMax = this.Height - 1;
+            int widthMax = this._actualWidth - 1;
+            int heightMax = this._actualHeight - 1;
             //Draw top and bottom borders
             this.DrawLine(X_ORIGIN, Y_ORIGIN, widthMax, Y_ORIGIN, HORIZONTAL_BORDER_LINE_FILL);
             this.DrawLine(X_ORIGIN, heightMax, widthMax, heightMax, HORIZONTAL_BORDER_LINE_FILL);
             //Draw left/right borders
             //heightMax - 1 so we don't draw over the ends of the horizontal borders
-            this.DrawLine(X_ORIGIN, Y_ORIGIN + 1, X_ORIGIN, heightMax, VERTICAL_BORDER_LINE_FILL);
-            this.DrawLine(widthMax - 1, Y_ORIGIN + 1, widthMax - 1, heightMax, VERTICAL_BORDER_LINE_FILL);
+            this.DrawLine(X_ORIGIN, Y_ORIGIN + 1, X_ORIGIN, heightMax - 1, VERTICAL_BORDER_LINE_FILL);
+            this.DrawLine(widthMax, Y_ORIGIN + 1, widthMax, heightMax - 1, VERTICAL_BORDER_LINE_FILL);
         }
 
 
@@ -152,7 +162,7 @@ namespace Huge.DrawingTool.Entities
         public void Initialize()
         {
             this.InitialFill();
-            //this.DrawBorders();
+            this.DrawBorders();
         }
 
         public void Reset()

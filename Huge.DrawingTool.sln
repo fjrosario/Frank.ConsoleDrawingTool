@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Huge.DrawingTool", "Huge.Dr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Huge.DrawingTool.Domain", "Huge.DrawingTool.Domain\Huge.DrawingTool.Domain.csproj", "{810325D8-FF8D-4600-831D-AAFA1E1844ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Huge.DrawingTool.Domain.Tests", "Huge.DrawingTool.Domain.Tests\Huge.DrawingTool.Domain.Tests.csproj", "{3989059C-6ABF-47C5-8BDE-219F02D12023}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{810325D8-FF8D-4600-831D-AAFA1E1844ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{810325D8-FF8D-4600-831D-AAFA1E1844ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{810325D8-FF8D-4600-831D-AAFA1E1844ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3989059C-6ABF-47C5-8BDE-219F02D12023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3989059C-6ABF-47C5-8BDE-219F02D12023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3989059C-6ABF-47C5-8BDE-219F02D12023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3989059C-6ABF-47C5-8BDE-219F02D12023}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Huge.DrawingTool.Domain.Helpers
 {
@@ -16,8 +13,6 @@ namespace Huge.DrawingTool.Domain.Helpers
             {
                 throw new ArgumentException("Value must be valid integer greater than or equal to 1", nameof(value));
             }
-
-            //adjust coordinates for Canvas, as command lines are 1 array based and canvas coordinate system is zero array based.
 
             return value;
         }

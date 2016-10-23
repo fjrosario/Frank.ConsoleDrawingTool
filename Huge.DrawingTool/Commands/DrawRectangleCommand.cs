@@ -84,4 +84,4 @@ namespace Huge.DrawingTool.Commands
         public override int ArgumentCount { get { return 4; } }
     }
 }
-}
+

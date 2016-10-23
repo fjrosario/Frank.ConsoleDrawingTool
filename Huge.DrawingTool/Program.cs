@@ -28,6 +28,7 @@ namespace Huge.DrawingTool
             string fileOutputPath = args[1];
 
             //check if file input exists
+
             if (System.IO.File.Exists(fileInputPath) == false)
             {
                 LogError(string.Format(@"Error: '{0}' could not be found", fileInputPath));

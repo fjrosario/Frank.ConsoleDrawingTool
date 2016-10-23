@@ -27,7 +27,7 @@ namespace Huge.DrawingTool.Services
                 //trim any excess white space between parameters
                 .Select(s => regEx.Replace(s.Trim(), DEFAULT_PARAM_DELIMITER.ToString()))
                 //Remove any empty strings
-                .Where(s => s != string.Empty);
+                .Where(s => s != string.Empty && s.StartsWith("//") == false);
 
             return sanitizedCommandLines;
         }

@@ -17,6 +17,7 @@ namespace Huge.DrawingTool.Factories
             availableCommands.Add(CreateCanvasCommand.CommandName, (ctx, args) => new CreateCanvasCommand(ctx, args));
             availableCommands.Add(DrawLineCommand.CommandName, (ctx, args) => new DrawLineCommand(ctx, args));
             availableCommands.Add(DrawRectangleCommand.CommandName, (ctx, args) => new DrawRectangleCommand(ctx, args));
+            availableCommands.Add(FillCommand.CommandName, (ctx, args) => new FillCommand(ctx, args));
         }
 
         public static ICommand CreateCommand(string cmdStr, ExecutionContext ctx, IEnumerable<string> args)

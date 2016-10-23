@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Huge.DrawingTool.Entities;
+using Huge.DrawingTool.Helpers;
 
 namespace Huge.DrawingTool.Commands
 {
@@ -57,26 +58,21 @@ namespace Huge.DrawingTool.Commands
             var argsArray = args.ToArray();
             this.ValidateArgumentCount(args);
 
-            int x = Helpers.ValidationHelper.ValidateAndParseInt(args[0]) - 1;
-            int y = Helpers.ValidationHelper.ValidateAndParseInt(args[1]) - 1;
+            int x = CoordinateHelper.GetCoordinateFromString(args[0]);
+            int y = CoordinateHelper.GetCoordinateFromString(args[1]);
 
             if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
             {
                 throw new ArgumentOutOfRangeException(string.Format("Error: Starting point ({0},{1}) not on canvas.", x, y));
             }
-            X1 = x;
-            Y1 = y;
 
-            x = Helpers.ValidationHelper.ValidateAndParseInt(args[2]) - 1;
-            y = Helpers.ValidationHelper.ValidateAndParseInt(args[3]) - 1;
+            x = CoordinateHelper.GetCoordinateFromString(args[2]);
+            y = CoordinateHelper.GetCoordinateFromString(args[3]);
 
             if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
             {
                 throw new ArgumentOutOfRangeException(string.Format("Error: Ending point ({0},{1}) not on canvas.", x, y));
             }
-
-            X2 = x;
-            Y2 = y;
 
 
         }

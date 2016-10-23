@@ -54,42 +54,36 @@ namespace Huge.DrawingTool
             //process input
             var commandTextLines = System.IO.File.ReadAllLines(fileInputPath);
             //  cleanup input
-            var sanitizedCommandLines = CommandParserService.SanitizeInput(commandTextLines);
-            //  extract commands from input
+            var sanitizedCommandLines = CommandParserService.SanitizeInput(commandTextLines).ToList();
             var ctx = new ExecutionContext();
 
+            //  extract commands from input
+            //make sure first command is creating Canvas
             var firstCmd = CommandParserService.GetCommandFromCommandLine(ctx, sanitizedCommandLines.First());
             if ((firstCmd is CreateCanvasCommand) == false)
             {
-                LogError("Error: first command must to create canvas not specified");
+                LogError("Error: first command must be to create canvas");
                 Console.ReadLine();
             }
             firstCmd.Execute();
 
             var remainderCommands = sanitizedCommandLines.Skip(1).Select(s => CommandParserService.GetCommandFromCommandLine(ctx, s)).ToList();
 
-            //make sure first command is creating Canvas
 
-            if (remainderCommands.Any())
+            foreach (var command in remainderCommands)
             {
-                foreach (var command in remainderCommands)
-                {
-                    command.Execute();
-                }
-
-                var gfxBuffer = ctx.Canvas.DumpBuffer();
-
-                for (int y = 0; y < gfxBuffer.GetLength(0); y++)
-                {
-                    for (int x = 0; x < gfxBuffer.GetLength(1); x++)
-                    {
-                        PrintChar(gfxBuffer[x,y]);
-                    }
-                }
+                command.Execute();
             }
-            else
+
+            var gfxBuffer = ctx.Canvas.DumpBuffer();
+                
+            for (int y = 0; y < gfxBuffer.GetLength(0); y++)
             {
-                LogError("Error: no commands specified in input file.");
+                for (int x = 0; x < gfxBuffer.GetLength(1); x++)
+                {
+                    PrintChar(gfxBuffer[y,x]);
+                }
+                Print(string.Empty);
             }
 
             Console.ReadLine();

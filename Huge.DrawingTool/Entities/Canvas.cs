@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,10 +18,8 @@ namespace Huge.DrawingTool.Entities
         public const char VERTICAL_BORDER_LINE_FILL = '|';
 
         private readonly char[,] _canvasArray;
-        private readonly int _height = 0;
-        private readonly int _width = 0;
-        private readonly int _heightMax = 0;
-        private readonly int _widthMax = 0;
+        public int Height { get; private set; }
+        public int Width { get; private set; }
 
         public bool IsPointOnCanvas(int x, int y)
         {
@@ -34,7 +33,7 @@ namespace Huge.DrawingTool.Entities
                 throw new Exception(string.Format("Internal error, {0} is null", nameof(_canvasArray)));
             }
 
-            return x < _width && y < _height;
+            return x < Width && y < Height;
         }
 
         public Canvas(int height, int width)
@@ -48,11 +47,11 @@ namespace Huge.DrawingTool.Entities
                 throw new ArgumentOutOfRangeException(nameof(width), string.Format("Width parameter must be at {0} or greater", MIN_HEIGHT));
             }
 
-            _canvasArray = new char[width, height];
-            _width = width;
-            _height = height;
-            _widthMax = _width - 1;
-            _heightMax = _height - 1;
+            //add two to each dimension for border
+            _canvasArray = new char[height, width];
+            Width = width;
+            Height = height;
+            this.Initialize();
         }
 
         public void DrawLine(int x1, int y1, int x2, int y2, char color = DEFAULT_COLOR)
@@ -74,34 +73,23 @@ namespace Huge.DrawingTool.Entities
             int absDx = Math.Abs(dx);
             int absDy = Math.Abs(dy);
 
-            int steps = (absDx > absDy) ? absDx : absDy;
+            int steps = Math.Max(absDx,absDy);
 
             float xIncrement = (float)dx/steps;
-            float yIncrement = (float)dy /steps;
-
-/*
-            int rise = Math.Abs(y2 - y1) + 1;
-            int run = Math.Abs(x2 - x1) + 1;
-            int slope = rise / run;
-*/
+            float yIncrement = (float)dy/steps;
 
             float curX = x1;
             float curY = y1;
             
-            for(int cntr=0; cntr < steps; cntr++)
+            for(int cntr=0; cntr <= steps; cntr++)
             {
-/*
-                //subtract rather than add because origin is from top left
-                //instead cartesian standard of bottom left.
-                int curY = y1 + (int)Math.Round(((decimal)(slope * curX)));
-*/
-                curX += xIncrement;
-                curY += yIncrement;
-
                 int intCurX = (int)Math.Round(curX);
                 int intCurY = (int)Math.Round(curY);
 
                 this.DrawUnit(intCurX, intCurY, color);
+
+                curX += xIncrement;
+                curY += yIncrement;
             }
 
         }
@@ -118,7 +106,11 @@ namespace Huge.DrawingTool.Entities
 
         public char GetUnit(int x, int y)
         {
-            return _canvasArray[x, y];
+            if (this.IsPointOnCanvas(x, y) == false)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            return _canvasArray[y, x];
         }
 
         public void DrawUnit(int x, int y, char color)
@@ -128,28 +120,31 @@ namespace Huge.DrawingTool.Entities
                 throw new ArgumentOutOfRangeException();
             }
 
-            _canvasArray[x, y] = color;
+            _canvasArray[y, x] = color;
         }
 
-        private void InitialFill()
+        private void InitialFill(char fill = 'S')
         {
-            for(int x=0; x < _width; x++)
+            for(int x=0; x < Width; x++)
             {
-                for (int y=0; y < _height; y++)
+                for (int y=0; y < Height; y++)
                 {
-                    this.DrawUnit(x, y, DEFAULT_FILL);
+                    this.DrawUnit(x, y, fill);
                 }
             }
         }
 
         private void DrawBorders()
         {
+            int widthMax = this.Width - 1;
+            int heightMax = this.Height - 1;
             //Draw top and bottom borders
-            this.DrawLine(X_ORIGIN, Y_ORIGIN, _widthMax, Y_ORIGIN, HORIZONTAL_BORDER_LINE_FILL);
-            this.DrawLine(X_ORIGIN, _heightMax, _widthMax, _heightMax, HORIZONTAL_BORDER_LINE_FILL);
+            this.DrawLine(X_ORIGIN, Y_ORIGIN, widthMax, Y_ORIGIN, HORIZONTAL_BORDER_LINE_FILL);
+            this.DrawLine(X_ORIGIN, heightMax, widthMax, heightMax, HORIZONTAL_BORDER_LINE_FILL);
             //Draw left/right borders
-            this.DrawLine(X_ORIGIN, Y_ORIGIN + 1, X_ORIGIN, _heightMax - 1,VERTICAL_BORDER_LINE_FILL);
-            this.DrawLine(_widthMax, Y_ORIGIN + 1, _widthMax, _heightMax - 1,VERTICAL_BORDER_LINE_FILL);
+            //heightMax - 1 so we don't draw over the ends of the horizontal borders
+            this.DrawLine(X_ORIGIN, Y_ORIGIN + 1, X_ORIGIN, heightMax, VERTICAL_BORDER_LINE_FILL);
+            this.DrawLine(widthMax - 1, Y_ORIGIN + 1, widthMax - 1, heightMax, VERTICAL_BORDER_LINE_FILL);
         }
 
 
@@ -157,7 +152,7 @@ namespace Huge.DrawingTool.Entities
         public void Initialize()
         {
             this.InitialFill();
-            this.DrawBorders();
+            //this.DrawBorders();
         }
 
         public void Reset()

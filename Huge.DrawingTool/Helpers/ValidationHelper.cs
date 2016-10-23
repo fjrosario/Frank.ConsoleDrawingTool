@@ -12,10 +12,12 @@ namespace Huge.DrawingTool.Helpers
             int value = 0;
             bool parseSuccess = Int32.TryParse(str, out value);
 
-            if (parseSuccess == false || value < 0)
+            if (parseSuccess == false || value < 1)
             {
-                throw new ArgumentException("Value must be valid integer greater than or equal to zero", nameof(value));
+                throw new ArgumentException("Value must be valid integer greater than or equal to 1", nameof(value));
             }
+
+            //adjust coordinates for Canvas, as command lines are 1 array based and canvas coordinate system is zero array based.
 
             return value;
         }

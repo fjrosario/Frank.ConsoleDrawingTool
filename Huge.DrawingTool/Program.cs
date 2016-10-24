@@ -52,50 +52,55 @@ namespace Huge.DrawingTool
                 LogError(string.Format(@"Error: '{0}' could not be found", fileInputPath));
             }
 
-
-
-            //process input
-            var commandTextLines = System.IO.File.ReadAllLines(fileInputPath);
-            //  cleanup input
-            var sanitizedCommandLines = CommandParserHelper.SanitizeInput(commandTextLines).ToList();
-            var ctx = new ExecutionContext();
-
-            var commands = sanitizedCommandLines.Select(s => CommandParserHelper.GetCommandFromCommandLine(ctx, s)).ToList();
-
-            if (commands.Any() == false)
+            try
             {
-                LogError(string.Format("Error: no commands to execute in file '{0}'", fileInputPath));
+                //process input
+                var commandTextLines = System.IO.File.ReadAllLines(fileInputPath);
+                //  cleanup input
+                var sanitizedCommandLines = CommandParserHelper.SanitizeInput(commandTextLines).ToList();
+                var ctx = new ExecutionContext();
+
+                var commands =
+                    sanitizedCommandLines.Select(s => CommandParserHelper.GetCommandFromCommandLine(ctx, s)).ToList();
+
+                if (commands.Any() == false)
+                {
+                    LogError(string.Format("Error: no commands to execute in file '{0}'", fileInputPath));
+                }
+
+                //  extract commands from input
+                //make sure first command is creating Canvas
+                IList<string> outputScreens = new List<string>();
+
+                var firstCmd = commands.FirstOrDefault();
+
+                if ((firstCmd is CreateCanvasCommand) == false)
+                {
+                    LogError("Error: first command must be to create canvas");
+                    Console.ReadLine();
+                }
+
+                //Write to file
+
+                string gfxBufferStr = null;
+
+                foreach (var command in commands)
+                {
+                    command.Execute();
+                    gfxBufferStr = ctx.Canvas.DumpBufferToString();
+                    outputScreens.Add(gfxBufferStr);
+                    Console.WriteLine(gfxBufferStr);
+                }
+
+                System.IO.File.WriteAllText(fileOutputPath, string.Join(Environment.NewLine, outputScreens));
+            }
+            catch (Exception e)
+            {
+                LogError(e.Message);
             }
 
-            //  extract commands from input
-            //make sure first command is creating Canvas
-            IList<string> outputScreens = new List<string>();
-
-            var firstCmd = commands.FirstOrDefault();
-
-            if ((firstCmd is CreateCanvasCommand) == false)
-            {
-                LogError("Error: first command must be to create canvas");
-                Console.ReadLine();
-            }
-            
-            //Write to file
-
-            string gfxBufferStr = null;
-
-            foreach (var command in commands)
-            {
-                command.Execute();
-                gfxBufferStr = ctx.Canvas.DumpBufferToString();
-                outputScreens.Add(gfxBufferStr);
-                Console.WriteLine(gfxBufferStr);
-            }
-
-            System.IO.File.WriteAllText(fileOutputPath, string.Join(Environment.NewLine,outputScreens));
 
 
-
-            Console.ReadLine();
         }
     }
 }

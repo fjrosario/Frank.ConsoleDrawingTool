@@ -16,7 +16,7 @@ namespace Huge.DrawingTool.Domain.Helpers
 
             if (parseSuccess == false || value < 1)
             {
-                throw new ArgumentException("Value must be valid integer greater than or equal to 1", nameof(value));
+                throw new ArgumentException(string.Format("'{0}' must be valid integer greater than or equal to 1", nameof(value)));
             }
 
             return value;

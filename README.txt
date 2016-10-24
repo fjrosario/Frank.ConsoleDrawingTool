@@ -1,3 +1,3 @@
 Usage:
 
-Huge.DrawingTool c:\path\to\input.text c:\path\to\output.txt 
+Huge.DrawingTool c:\path\to\input.txt c:\path\to\output.txt 

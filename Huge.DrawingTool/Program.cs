@@ -39,7 +39,7 @@ namespace Huge.DrawingTool
         {
             if(args.Count() != 2)
             {
-                LogError(@"Error: command line arguments incorrect. Format: Huge.DrawingTool c:\path\to\input.text c:\path\to\output.txt");
+                LogError(@"Error: command line arguments incorrect. Format: Huge.DrawingTool c:\path\to\input.txt c:\path\to\output.txt");
             }
 
             string fileInputPath = args[0];

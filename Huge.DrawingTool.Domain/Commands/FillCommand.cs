@@ -23,6 +23,12 @@ namespace Huge.DrawingTool.Domain.Commands
                 throw new Exception("Error: Canvas has not been initialized");
             }
 
+            if (_canvasContext.Canvas.IsPointOnCanvas(X, Y) == false)
+            {
+                throw new ArgumentOutOfRangeException(string.Format("Error: Fill start point ({0},{1}) not on canvas.", X, Y));
+            }
+
+
             var targetColor = _canvasContext.Canvas.GetUnit(X, Y);
             _canvasContext.Canvas.FloodFill(X,Y, targetColor, ReplacementColor);
 
@@ -60,14 +66,10 @@ namespace Huge.DrawingTool.Domain.Commands
             int x = Helpers.ValidationHelper.ValidateAndParseInt(args[0]) - 1;
             int y = Helpers.ValidationHelper.ValidateAndParseInt(args[1]) - 1;
 
-            if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
-            {
-                throw new ArgumentOutOfRangeException(string.Format("Error: Fill start point ({0},{1}) not on canvas.", x, y));
-            }
             X = x;
             Y = y;
 
-
+            //cheat: if third parameter is a string, just get first character and use that a replacement color
             this.ReplacementColor = args[2][0];
 
         }

@@ -23,6 +23,17 @@ namespace Huge.DrawingTool.Domain.Commands
                 throw new Exception("Error: Canvas has not been initialized");
             }
 
+
+            if (_canvasContext.Canvas.IsPointOnCanvas(X1, Y1) == false)
+            {
+                throw new ArgumentOutOfRangeException(string.Format("Error: Starting point ({0},{1}) not on canvas.", X1, Y1));
+            }
+
+            if (_canvasContext.Canvas.IsPointOnCanvas(X2, Y2) == false)
+            {
+                throw new ArgumentOutOfRangeException(string.Format("Error: Ending point ({0},{1}) not on canvas.", X2, Y2));
+            }
+
             _canvasContext.Canvas.DrawLine(X1, Y1, X2, Y2);
 
         }
@@ -54,16 +65,11 @@ namespace Huge.DrawingTool.Domain.Commands
         public void ParseArguments(string[] args)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
-            var argsArray = args.ToArray();
+
             this.ValidateArgumentCount(args);
 
             int x = ValidationHelper.ValidateAndParseInt(args[0]);
             int y = ValidationHelper.ValidateAndParseInt(args[1]);
-
-            if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
-            {
-                throw new ArgumentOutOfRangeException(string.Format("Error: Starting point ({0},{1}) not on canvas.",x,y));
-            }
 
             X1 = x;
             Y1 = y;
@@ -71,15 +77,8 @@ namespace Huge.DrawingTool.Domain.Commands
             x = ValidationHelper.ValidateAndParseInt(args[2]);
             y = ValidationHelper.ValidateAndParseInt(args[3]);
 
-            if (_canvasContext.Canvas.IsPointOnCanvas(x, y) == false)
-            {
-                throw new ArgumentOutOfRangeException(string.Format("Error: Ending point({0},{1}) not on canvas.", x, y));
-            }
-
             X2 = x;
             Y2 = y;
-
-
 
         }
 

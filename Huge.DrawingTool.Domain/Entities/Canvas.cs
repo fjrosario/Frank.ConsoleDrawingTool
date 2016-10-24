@@ -21,11 +21,18 @@ namespace Huge.DrawingTool.Domain.Entities
         private readonly char[,] _canvasArray;
         private readonly int _actualWidth;
         private readonly int _actualHeight;
+        private int yLength;
 
         public char DefaultFill { get; private set; }
         public int Height { get; private set; }
         public int Width { get; private set; }
 
+        /// <summary>
+        /// Test if point is exists on canvas or is out of bounds
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool IsPointOnCanvas(int x, int y)
         {
             if(x < X_ORIGIN || y < Y_ORIGIN)
@@ -58,6 +65,8 @@ namespace Huge.DrawingTool.Domain.Entities
             Height = height;
             DefaultFill = defaultFill;
 
+            //internal fields to story actual dimensions of array
+            //Width/Height properties only report dimensions not including borders
             _actualWidth = _canvasArray.GetLength(1);
             _actualHeight = _canvasArray.GetLength(0);
 
@@ -106,14 +115,26 @@ namespace Huge.DrawingTool.Domain.Entities
 
         public void DrawRectangle(int x1, int y1, int x2, int y2, char color = DEFAULT_COLOR)
         {
-            //Draw top and bottom borders
+            //Draw top and bottom lines
             this.DrawLine(x1, y1, x2, y1, color);
             this.DrawLine(x1, y2, x2, y2, color);
-            //Draw left/right borders
+            //Draw left/right lines
             this.DrawLine(x1, y1, x1, y2, color);
             this.DrawLine(x2, y1, x2, y2, color);
         }
 
+        /// <summary>
+        /// 
+        /// Retrieves value of unit as defined by x and y.
+        /// 
+        /// Note:
+        /// This is called GetUnit instead of GetColor because I wanted the solution
+        /// to be scalable incase we wanted to change the atomic unit of the canvas
+        /// from something besides a char
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public char GetUnit(int x, int y)
         {
             if (this.IsPointOnCanvas(x, y) == false)
@@ -123,14 +144,26 @@ namespace Huge.DrawingTool.Domain.Entities
             return _canvasArray[y, x];
         }
 
-        public void DrawUnit(int x, int y, char color)
+        /// <summary>
+        /// 
+        /// Retrieves value of unit as defined by x and y.
+        /// 
+        /// Note:
+        /// This is called DrawUnit instead of DrawColor because I wanted the solution
+        /// to be scalable incase we wanted to change the atomic unit of the canvas
+        /// from something besides a char
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="unit">value to fill unit with</param>
+        public void DrawUnit(int x, int y, char unit)
         {
             if (this.IsPointOnCanvas(x, y) == false)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            _canvasArray[y, x] = color;
+            _canvasArray[y, x] = unit;
         }
 
         private void InitialFill()
@@ -176,8 +209,8 @@ namespace Huge.DrawingTool.Domain.Entities
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="targetColor"></param>
-        /// <param name="replacementColor"></param>
+        /// <param name="targetColor">target color to replace</param>
+        /// <param name="replacementColor">replacement color for target</param>
         public void FloodFill(int x, int y, char targetColor, char replacementColor)
         {
             if(this.IsPointOnCanvas(x,y) == false)
@@ -215,6 +248,8 @@ namespace Huge.DrawingTool.Domain.Entities
 
         public char[,] DumpBuffer()
         {
+            // cloning internal array. Don't want to return a direct reference to the internal array,
+            // otherwise a client could manipulate the _canvasArray outside of the class's methods.
             return (char[,])_canvasArray.Clone();
         }
 
@@ -222,9 +257,10 @@ namespace Huge.DrawingTool.Domain.Entities
         {
             var gfxBuffer = DumpBuffer();
             var sbOutput = new StringBuilder();
-            for (int y = 0; y < gfxBuffer.GetLength(0); y++)
+
+            for (int y = 0; y < _actualHeight; y++)
             {
-                for (int x = 0; x < gfxBuffer.GetLength(1); x++)
+                for (int x = 0; x < _actualWidth; x++)
                 {
                     char c = gfxBuffer[y, x];
                     sbOutput.Append(c);

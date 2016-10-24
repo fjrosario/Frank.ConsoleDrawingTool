@@ -9,12 +9,9 @@ namespace Huge.DrawingTool.Domain.Helpers
     public class CommandParserHelper
     {
 
-        public CommandParserHelper()
-        {
-        }
         const char DEFAULT_PARAM_DELIMITER = ' ';
         /// <summary>
-        /// 
+        /// Takes multiline input and cleans it up
         /// </summary>
         /// <param name="commandLines"></param>
         /// <returns></returns>
@@ -29,9 +26,9 @@ namespace Huge.DrawingTool.Domain.Helpers
 
             var sanitizedCommandLines = 
                 commandLines
-                //trim any excess white space between parameters
+                //trim any excess white space between parameters and from ends
                 .Select(s => regEx.Replace(s.Trim(), DEFAULT_PARAM_DELIMITER.ToString()))
-                //Remove any empty strings
+                //Remove any empty strings and any commented out commands
                 .Where(s => s != string.Empty && s.StartsWith("//") == false);
 
             return sanitizedCommandLines;
@@ -40,9 +37,12 @@ namespace Huge.DrawingTool.Domain.Helpers
         public static ICommand GetCommandFromCommandLine(ExecutionContext ctx, string commandLine)
         {
             string[] clParts = commandLine.Split(DEFAULT_PARAM_DELIMITER).ToArray();
+            //get command portion of line
             string commandName = clParts[0].ToUpper();
+            //get arguments portion of line
             IEnumerable<string> args = clParts.Skip(1);
 
+            //get ICommand object for command line
             var cmd = Factories.CommandFactory.CreateCommand(commandName, ctx, args);
             return cmd;
         }

@@ -68,7 +68,7 @@ namespace Huge.DrawingTool.Domain.Commands
             this.Height = height;
 
 
-            //optional parameter to make it easier to debug output
+            //optional parameter to make it easier to debug output by specifying default fill character
             if (args.Length >= 3)
             {
                 this.DefaultFill = args[2][0];

@@ -4,6 +4,11 @@ namespace Huge.DrawingTool.Domain.Helpers
 {
     public class ValidationHelper
     {
+        /// <summary>
+        /// Validates string is a positive number, throws exception if passed anything but
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static int ValidateAndParseInt(string str)
         {
             int value = 0;

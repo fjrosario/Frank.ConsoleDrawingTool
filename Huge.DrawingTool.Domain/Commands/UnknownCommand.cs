@@ -6,7 +6,7 @@ namespace Huge.DrawingTool.Domain.Commands
     {
         public void Execute()
         {
-            Console.Error.WriteLine("Error: unknown command");
+            throw new Exception("Error: unknown command");
         }
     }
 }

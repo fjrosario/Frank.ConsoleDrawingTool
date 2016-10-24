@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using Huge.DrawingTool.Domain.Commands;
 using Huge.DrawingTool.Domain.Entities;
 using Huge.DrawingTool.Domain.Helpers;
@@ -73,15 +74,21 @@ namespace Huge.DrawingTool
             }
 
             var gfxBuffer = ctx.Canvas.DumpBuffer();
-                
+            
+            var sbOutput = new StringBuilder();
             for (int y = 0; y < gfxBuffer.GetLength(0); y++)
             {
                 for (int x = 0; x < gfxBuffer.GetLength(1); x++)
                 {
-                    PrintChar(gfxBuffer[y,x]);
+                    char c = gfxBuffer[y, x];
+                    PrintChar(c);
+                    sbOutput.Append(c);
                 }
                 Print(string.Empty);
+                sbOutput.AppendLine();
             }
+
+            var output = sbOutput.ToString();
 
             Console.ReadLine();
         }

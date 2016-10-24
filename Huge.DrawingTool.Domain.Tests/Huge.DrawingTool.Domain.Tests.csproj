@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Factories\CanvasFactory.cs" />
     <Compile Include="Helpers\ComparisonHelper.cs" />
+    <Compile Include="Tests\Entities\CanvasTests.cs" />
     <Compile Include="Tests\Helpers\CommandParserHelper.cs" />
     <Compile Include="Tests\Helpers\ValidationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

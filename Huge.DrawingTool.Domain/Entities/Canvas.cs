@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Huge.DrawingTool.Domain.Entities
@@ -44,11 +45,11 @@ namespace Huge.DrawingTool.Domain.Entities
         {
             if(height < MIN_HEIGHT)
             {
-                throw new ArgumentOutOfRangeException(nameof(height), string.Format("Height parameter must be at {0} or greater", MIN_HEIGHT));
+                throw new ArgumentOutOfRangeException(nameof(height), string.Format("Height parameter must be at least {0} or greater", MIN_HEIGHT));
             }
             if (width < MIN_WIDTH)
             {
-                throw new ArgumentOutOfRangeException(nameof(width), string.Format("Width parameter must be at {0} or greater", MIN_HEIGHT));
+                throw new ArgumentOutOfRangeException(nameof(width), string.Format("Width parameter must be at least {0} or greater", MIN_HEIGHT));
             }
 
             //add two to each dimension for border
@@ -216,6 +217,23 @@ namespace Huge.DrawingTool.Domain.Entities
         public char[,] DumpBuffer()
         {
             return (char[,])_canvasArray.Clone();
+        }
+
+        public string DumpBufferToString()
+        {
+            var gfxBuffer = DumpBuffer();
+            var sbOutput = new StringBuilder();
+            for (int y = 0; y < gfxBuffer.GetLength(0); y++)
+            {
+                for (int x = 0; x < gfxBuffer.GetLength(1); x++)
+                {
+                    char c = gfxBuffer[y, x];
+                    sbOutput.Append(c);
+                }
+                sbOutput.AppendLine();
+            }
+
+            return sbOutput.ToString().Trim();
         }
     }
 }

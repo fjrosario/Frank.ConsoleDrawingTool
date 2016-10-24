@@ -14,6 +14,7 @@ namespace Huge.DrawingTool.Domain.Tests.Tests.Helpers
         protected const string CREATE_CANVAS_COMMAND_TEXT = "C 20 4";
         protected const string DRAW_LINE_COMMAND_TEXT = "L 1 2 6 2";
         protected const string DRAW_RECTANGLE_COMMAND_TEXT = "R 16 1 20 3";
+        protected const string FILL_COMMAND_TEXT = "B 10 3 o";
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -71,6 +72,14 @@ namespace Huge.DrawingTool.Domain.Tests.Tests.Helpers
             var ctx = Factories.CanvasFactory.CreatExecutionContextWithCanvas();
             var cmd = Domain.Helpers.CommandParserHelper.GetCommandFromCommandLine(ctx, DRAW_RECTANGLE_COMMAND_TEXT);
             Assert.IsInstanceOfType(cmd, typeof(Domain.Commands.DrawRectangleCommand));
+        }
+
+        [TestMethod]
+        public void GetCommandFromCommandLine_FillCommand()
+        {
+            var ctx = Factories.CanvasFactory.CreatExecutionContextWithCanvas();
+            var cmd = Domain.Helpers.CommandParserHelper.GetCommandFromCommandLine(ctx, FILL_COMMAND_TEXT);
+            Assert.IsInstanceOfType(cmd, typeof(Domain.Commands.FillCommand));
         }
 
 

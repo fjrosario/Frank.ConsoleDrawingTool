@@ -1,14 +1,15 @@
-﻿using Huge.DrawingTool.Domain.Commands;
+﻿using System;
+using Huge.DrawingTool.Domain.Commands;
 using System.Collections.Generic;
 using System.Linq;
 using Huge.DrawingTool.Domain.Entities;
 
-namespace Huge.DrawingTool.Domain.Services
+namespace Huge.DrawingTool.Domain.Helpers
 {
-    public class CommandParserService
+    public class CommandParserHelper
     {
 
-        public CommandParserService()
+        public CommandParserHelper()
         {
         }
         const char DEFAULT_PARAM_DELIMITER = ' ';
@@ -19,6 +20,10 @@ namespace Huge.DrawingTool.Domain.Services
         /// <returns></returns>
         public static IEnumerable<string> SanitizeInput(IEnumerable<string> commandLines)
         {
+            if (commandLines == null)
+            {
+                throw new ArgumentNullException(nameof(commandLines));
+            }
             const string WHITE_SPACE_MATCH_REGEX = @"\s+";
             var regEx = new System.Text.RegularExpressions.Regex(WHITE_SPACE_MATCH_REGEX);
 

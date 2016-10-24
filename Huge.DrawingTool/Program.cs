@@ -2,7 +2,7 @@
 using System.Linq;
 using Huge.DrawingTool.Domain.Commands;
 using Huge.DrawingTool.Domain.Entities;
-using Huge.DrawingTool.Domain.Services;
+using Huge.DrawingTool.Domain.Helpers;
 
 namespace Huge.DrawingTool
 {
@@ -51,12 +51,12 @@ namespace Huge.DrawingTool
             //process input
             var commandTextLines = System.IO.File.ReadAllLines(fileInputPath);
             //  cleanup input
-            var sanitizedCommandLines = CommandParserService.SanitizeInput(commandTextLines).ToList();
+            var sanitizedCommandLines = CommandParserHelper.SanitizeInput(commandTextLines).ToList();
             var ctx = new ExecutionContext();
 
             //  extract commands from input
             //make sure first command is creating Canvas
-            var firstCmd = CommandParserService.GetCommandFromCommandLine(ctx, sanitizedCommandLines.First());
+            var firstCmd = CommandParserHelper.GetCommandFromCommandLine(ctx, sanitizedCommandLines.First());
             if ((firstCmd is CreateCanvasCommand) == false)
             {
                 LogError("Error: first command must be to create canvas");
@@ -64,7 +64,7 @@ namespace Huge.DrawingTool
             }
             firstCmd.Execute();
 
-            var remainderCommands = sanitizedCommandLines.Skip(1).Select(s => CommandParserService.GetCommandFromCommandLine(ctx, s)).ToList();
+            var remainderCommands = sanitizedCommandLines.Skip(1).Select(s => CommandParserHelper.GetCommandFromCommandLine(ctx, s)).ToList();
 
 
             foreach (var command in remainderCommands)

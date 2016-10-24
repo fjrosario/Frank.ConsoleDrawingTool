@@ -52,9 +52,8 @@ namespace Huge.DrawingTool.Domain.Entities
                 throw new ArgumentOutOfRangeException(nameof(width), string.Format("Width parameter must be at least {0} or greater", MIN_HEIGHT));
             }
 
-            //add two to each dimension for border
+            //add two to each dimension for borders
             _canvasArray = new char[height + 2, width + 2];
-            //_borderedCanvasArray = new char[height + 2, width + 2];
             Width = width;
             Height = height;
             DefaultFill = defaultFill;
@@ -153,7 +152,7 @@ namespace Huge.DrawingTool.Domain.Entities
             this.DrawLine(X_ORIGIN, Y_ORIGIN, widthMax, Y_ORIGIN, HORIZONTAL_BORDER_LINE_FILL);
             this.DrawLine(X_ORIGIN, heightMax, widthMax, heightMax, HORIZONTAL_BORDER_LINE_FILL);
             //Draw left/right borders
-            //heightMax - 1 so we don't draw over the ends of the horizontal borders
+            //Y_ORIGIN + 1 and heightMax - 1 so we don't draw over the ends of the horizontal borders
             this.DrawLine(X_ORIGIN, Y_ORIGIN + 1, X_ORIGIN, heightMax - 1, VERTICAL_BORDER_LINE_FILL);
             this.DrawLine(widthMax, Y_ORIGIN + 1, widthMax, heightMax - 1, VERTICAL_BORDER_LINE_FILL);
         }

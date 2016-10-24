@@ -6,3 +6,4 @@ Huge.DrawingTool.Domain/obj/
 Huge.DrawingTool.Domain.Tests/obj/
 Huge.DrawingTool.Domain.Tests/bin/
 Huge.DrawingTool.Domain/bin/
+*.user

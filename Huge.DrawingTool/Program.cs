@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Huge.DrawingTool.Domain.Commands;
@@ -29,22 +30,21 @@ namespace Huge.DrawingTool
         {
             if(args.Count() != 2)
             {
-                LogError(@"Error: command line arguments incorrect. Format: DT c:\path\to\input.text c:\path\to\output.txt");
+                LogError(@"Error: command line arguments incorrect. Format: Huge.DrawingTool c:\path\to\input.text c:\path\to\output.txt");
                 Console.ReadLine();
                 return;
             }
 
-            string fileInputPath = "";//args[0];
-            string fileOutputPath = "";//args[1];
+            string fileInputPath = args[0];
+            string fileOutputPath = args[1];
 
             //check if file input exists
 
             if (System.IO.File.Exists(fileInputPath) == false)
             {
                 LogError(string.Format(@"Error: '{0}' could not be found", fileInputPath));
-                fileInputPath = "input.txt";
-                //Console.ReadLine();
-                //return;
+                Console.ReadLine();
+                return;
             }
             
 
@@ -57,6 +57,7 @@ namespace Huge.DrawingTool
 
             //  extract commands from input
             //make sure first command is creating Canvas
+            IList<string> outputScreens = new List<string>();
             var firstCmd = CommandParserHelper.GetCommandFromCommandLine(ctx, sanitizedCommandLines.First());
             if ((firstCmd is CreateCanvasCommand) == false)
             {
@@ -64,31 +65,25 @@ namespace Huge.DrawingTool
                 Console.ReadLine();
             }
             firstCmd.Execute();
+            var gfxBufferStr = ctx.Canvas.DumpBufferToString();
+            outputScreens.Add(gfxBufferStr);
+            Console.WriteLine(gfxBufferStr);
 
             var remainderCommands = sanitizedCommandLines.Skip(1).Select(s => CommandParserHelper.GetCommandFromCommandLine(ctx, s)).ToList();
 
+            //Write to file
 
             foreach (var command in remainderCommands)
             {
                 command.Execute();
+                gfxBufferStr = ctx.Canvas.DumpBufferToString();
+                outputScreens.Add(gfxBufferStr);
+                Console.WriteLine(gfxBufferStr);
             }
 
-            var gfxBuffer = ctx.Canvas.DumpBuffer();
-            
-            var sbOutput = new StringBuilder();
-            for (int y = 0; y < gfxBuffer.GetLength(0); y++)
-            {
-                for (int x = 0; x < gfxBuffer.GetLength(1); x++)
-                {
-                    char c = gfxBuffer[y, x];
-                    PrintChar(c);
-                    sbOutput.Append(c);
-                }
-                Print(string.Empty);
-                sbOutput.AppendLine();
-            }
+            System.IO.File.WriteAllText(fileOutputPath, string.Join(Environment.NewLine,outputScreens));
 
-            var output = sbOutput.ToString();
+
 
             Console.ReadLine();
         }

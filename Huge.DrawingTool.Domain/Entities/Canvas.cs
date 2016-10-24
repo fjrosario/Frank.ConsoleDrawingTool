@@ -21,8 +21,7 @@ namespace Huge.DrawingTool.Domain.Entities
         private readonly char[,] _canvasArray;
         private readonly int _actualWidth;
         private readonly int _actualHeight;
-        private int yLength;
-
+        
         public char DefaultFill { get; private set; }
         public int Height { get; private set; }
         public int Width { get; private set; }

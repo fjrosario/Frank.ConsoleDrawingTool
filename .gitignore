@@ -1,9 +1,9 @@
-Huge.DrawingTool/bin/
-Huge.DrawingTool/obj/
+Frank.ConsoleDrawingTool/bin/
+Frank.ConsoleDrawingTool/obj/
 *.suo
 *.cache
-Huge.DrawingTool.Domain/obj/
-Huge.DrawingTool.Domain.Tests/obj/
-Huge.DrawingTool.Domain.Tests/bin/
-Huge.DrawingTool.Domain/bin/
+Frank.ConsoleDrawingTool.Domain/obj/
+Frank.ConsoleDrawingTool.Domain.Tests/obj/
+Frank.ConsoleDrawingTool.Domain.Tests/bin/
+Frank.ConsoleDrawingTool.Domain/bin/
 *.user

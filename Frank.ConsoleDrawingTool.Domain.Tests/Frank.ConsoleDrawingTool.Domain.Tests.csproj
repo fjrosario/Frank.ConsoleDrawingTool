@@ -58,7 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Huge.DrawingTool.Domain\Frank.ConsoleDrawingTool.Domain.csproj">
+    <ProjectReference Include="..\Frank.ConsoleDrawingTool.Domain\Frank.ConsoleDrawingTool.Domain.csproj">
       <Project>{810325d8-ff8d-4600-831d-aafa1e1844ed}</Project>
       <Name>Frank.ConsoleDrawingTool.Domain</Name>
     </ProjectReference>

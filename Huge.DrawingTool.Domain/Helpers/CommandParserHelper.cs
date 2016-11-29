@@ -1,10 +1,10 @@
 ﻿using System;
-using Huge.DrawingTool.Domain.Commands;
+using Frank.ConsoleDrawingTool.Domain.Commands;
 using System.Collections.Generic;
 using System.Linq;
-using Huge.DrawingTool.Domain.Entities;
+using Frank.ConsoleDrawingTool.Domain.Entities;
 
-namespace Huge.DrawingTool.Domain.Helpers
+namespace Frank.ConsoleDrawingTool.Domain.Helpers
 {
     public class CommandParserHelper
     {

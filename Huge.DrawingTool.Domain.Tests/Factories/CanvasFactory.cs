@@ -1,7 +1,7 @@
-﻿using Huge.DrawingTool.Domain.Entities;
+﻿using Frank.ConsoleDrawingTool.Domain.Entities;
 using ExecutionContext = System.Threading.ExecutionContext;
 
-namespace Huge.DrawingTool.Domain.Tests.Factories
+namespace Frank.ConsoleDrawingTool.Domain.Tests.Factories
 {
     public static class CanvasFactory
     {

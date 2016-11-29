@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Huge.DrawingTool.Domain.Tests.Helpers
+namespace Frank.ConsoleDrawingTool.Domain.Tests.Helpers
 {
     public static class ComparisonHelper
     {

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Huge.DrawingTool", "Huge.DrawingTool\Huge.DrawingTool.csproj", "{41869093-6650-4301-8272-480FE2720559}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.ConsoleDrawingTool", "Huge.DrawingTool\Frank.ConsoleDrawingTool.csproj", "{41869093-6650-4301-8272-480FE2720559}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Huge.DrawingTool.Domain", "Huge.DrawingTool.Domain\Huge.DrawingTool.Domain.csproj", "{810325D8-FF8D-4600-831D-AAFA1E1844ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.ConsoleDrawingTool.Domain", "Huge.DrawingTool.Domain\Frank.ConsoleDrawingTool.Domain.csproj", "{810325D8-FF8D-4600-831D-AAFA1E1844ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Huge.DrawingTool.Domain.Tests", "Huge.DrawingTool.Domain.Tests\Huge.DrawingTool.Domain.Tests.csproj", "{3989059C-6ABF-47C5-8BDE-219F02D12023}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frank.ConsoleDrawingTool.Domain.Tests", "Huge.DrawingTool.Domain.Tests\Frank.ConsoleDrawingTool.Domain.Tests.csproj", "{3989059C-6ABF-47C5-8BDE-219F02D12023}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DD297F1C-2093-40CD-86CC-5199B6AF770C}"
 	ProjectSection(SolutionItems) = preProject

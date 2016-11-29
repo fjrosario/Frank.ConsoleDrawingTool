@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Huge.DrawingTool.Domain.Entities
+namespace Frank.ConsoleDrawingTool.Domain.Entities
 {
     public class Canvas
     {

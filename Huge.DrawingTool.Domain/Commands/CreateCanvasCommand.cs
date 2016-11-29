@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Huge.DrawingTool.Domain.Entities;
+using Frank.ConsoleDrawingTool.Domain.Entities;
 
-namespace Huge.DrawingTool.Domain.Commands
+namespace Frank.ConsoleDrawingTool.Domain.Commands
 {
     public class CreateCanvasCommand : BaseCommand, ICommand
     {

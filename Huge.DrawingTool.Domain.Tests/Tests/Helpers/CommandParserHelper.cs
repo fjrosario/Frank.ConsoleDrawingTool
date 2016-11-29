@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Huge.DrawingTool.Domain.Entities;
+using Frank.ConsoleDrawingTool.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Huge.DrawingTool.Domain.Tests.Tests.Helpers
+namespace Frank.ConsoleDrawingTool.Domain.Tests.Tests.Helpers
 {
     [TestClass]
     public class CommandParserHelper

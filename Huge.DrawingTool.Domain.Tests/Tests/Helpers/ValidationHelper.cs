@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Huge.DrawingTool.Domain.Tests.Tests.Helpers
+namespace Frank.ConsoleDrawingTool.Domain.Tests.Tests.Helpers
 {
     [TestClass]
     public class ValidationHelper

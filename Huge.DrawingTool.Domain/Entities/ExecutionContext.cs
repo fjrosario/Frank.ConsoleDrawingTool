@@ -1,4 +1,4 @@
-﻿namespace Huge.DrawingTool.Domain.Entities
+﻿namespace Frank.ConsoleDrawingTool.Domain.Entities
 {
     /// <summary>
     /// ExecutionContext

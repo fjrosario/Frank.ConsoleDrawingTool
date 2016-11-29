@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Huge.DrawingTool.Domain.Helpers
+namespace Frank.ConsoleDrawingTool.Domain.Helpers
 {
     public class ValidationHelper
     {

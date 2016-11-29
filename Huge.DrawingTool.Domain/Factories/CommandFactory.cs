@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Huge.DrawingTool.Domain.Commands;
-using Huge.DrawingTool.Domain.Entities;
+using Frank.ConsoleDrawingTool.Domain.Commands;
+using Frank.ConsoleDrawingTool.Domain.Entities;
 
-namespace Huge.DrawingTool.Domain.Factories
+namespace Frank.ConsoleDrawingTool.Domain.Factories
 {
     public static class CommandFactory
     {

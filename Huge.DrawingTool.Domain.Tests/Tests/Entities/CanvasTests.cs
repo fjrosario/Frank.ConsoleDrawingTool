@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Huge.DrawingTool.Domain.Entities;
+using Frank.ConsoleDrawingTool.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Huge.DrawingTool.Domain.Tests.Tests.Entities
+namespace Frank.ConsoleDrawingTool.Domain.Tests.Tests.Entities
 {
     [TestClass]
     public class CanvasTests

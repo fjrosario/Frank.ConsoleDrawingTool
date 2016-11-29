@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Huge.DrawingTool.Domain.Entities;
-using Huge.DrawingTool.Domain.Helpers;
+using Frank.ConsoleDrawingTool.Domain.Entities;
+using Frank.ConsoleDrawingTool.Domain.Helpers;
 
-namespace Huge.DrawingTool.Domain.Commands
+namespace Frank.ConsoleDrawingTool.Domain.Commands
 {
     public class DrawLineCommand : BaseCommand, ICommand
     {

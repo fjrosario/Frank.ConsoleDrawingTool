@@ -1,4 +1,4 @@
-﻿namespace Huge.DrawingTool.Domain.Commands
+﻿namespace Frank.ConsoleDrawingTool.Domain.Commands
 {
     public interface ICommand
     {

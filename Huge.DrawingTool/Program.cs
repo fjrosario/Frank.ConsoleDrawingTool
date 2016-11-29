@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Huge.DrawingTool.Domain.Commands;
-using Huge.DrawingTool.Domain.Entities;
-using Huge.DrawingTool.Domain.Helpers;
+using Frank.ConsoleDrawingTool.Domain.Commands;
+using Frank.ConsoleDrawingTool.Domain.Entities;
+using Frank.ConsoleDrawingTool.Domain.Helpers;
 
-namespace Huge.DrawingTool
+namespace Frank.ConsoleDrawingTool
 {
     public class Program
     {
@@ -39,7 +39,7 @@ namespace Huge.DrawingTool
         {
             if(args.Count() != 2)
             {
-                LogError(@"Error: command line arguments incorrect. Format: Huge.DrawingTool c:\path\to\input.txt c:\path\to\output.txt");
+                LogError(@"Error: command line arguments incorrect. Format: Frank.ConsoleDrawingTool c:\path\to\input.txt c:\path\to\output.txt");
             }
 
             string fileInputPath = args[0];
